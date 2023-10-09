@@ -1,15 +1,13 @@
 package com.peeerr.instagram.domain.user;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 @Getter
 @Entity
 public class User {
@@ -43,11 +41,16 @@ public class User {
     }
 
     @Builder
-    public User(String username, String password, String email, String name, String role) {
+    public User(String username, String password, String email, String name, String website, String bio, String phone, String gender, String profileImageUrl, String role) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.name = name;
+        this.website = website;
+        this.bio = bio;
+        this.phone = phone;
+        this.gender = gender;
+        this.profileImageUrl = profileImageUrl;
         this.role = role;
     }
 
