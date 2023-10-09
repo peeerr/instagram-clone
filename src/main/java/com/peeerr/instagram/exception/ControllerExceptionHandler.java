@@ -1,6 +1,7 @@
 package com.peeerr.instagram.exception;
 
 import com.peeerr.instagram.dto.CMResponse;
+import com.peeerr.instagram.exception.ex.CustomApiException;
 import com.peeerr.instagram.exception.ex.CustomValidationApiException;
 import com.peeerr.instagram.exception.ex.CustomValidationException;
 import com.peeerr.instagram.util.Script;
@@ -20,6 +21,12 @@ public class ControllerExceptionHandler {
     public ResponseEntity<CMResponse<?>> validationApiException(CustomValidationApiException e) {
         return ResponseEntity.badRequest()
                 .body(new CMResponse<>(-1, e.getMessage(), e.getErrorMap()));
+    }
+
+    @ExceptionHandler(CustomApiException.class)
+    public ResponseEntity<CMResponse<?>> apiException(CustomApiException e) {
+        return ResponseEntity.badRequest()
+                .body(new CMResponse<>(-1, e.getMessage(), null));
     }
 
 }

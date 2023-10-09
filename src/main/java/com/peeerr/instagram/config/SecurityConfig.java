@@ -23,6 +23,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/image/**")).authenticated()
                         .requestMatchers(new AntPathRequestMatcher("/subscribe/**")).authenticated()
                         .requestMatchers(new AntPathRequestMatcher("/comment/**")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/api/**")).authenticated()
                         .anyRequest().permitAll())
                 .formLogin(log -> log
                         .loginPage("/auth/signin")
