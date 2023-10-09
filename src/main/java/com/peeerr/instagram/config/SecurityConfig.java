@@ -26,6 +26,7 @@ public class SecurityConfig {
                         .anyRequest().permitAll())
                 .formLogin(log -> log
                         .loginPage("/auth/signin")
+                        .loginProcessingUrl("/auth/signin")
                         .defaultSuccessUrl("/"));
 
         return http.build();
