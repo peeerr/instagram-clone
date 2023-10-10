@@ -18,7 +18,7 @@
                 <!--사진업로드 로고 end-->
                 
                 <!--사진업로드 Form-->
-                <form class="upload-form" >
+                <form class="upload-form" action="/image" method="post" enctype="multipart/form-data" >
                     <input  type="file" name="file"  onchange="imageChoose(this)"/>
                     <div class="upload-img">
                         <img src="/images/person.jpeg" alt="" id="imageUploadPreview" />
@@ -38,5 +38,5 @@
         </main>
         <br/><br/>
 	
-	<script src="/js/upload.js" ></script>
-    <%@ include file="../layout/footer.jsp" %>
+<script src="/js/upload.js" ></script>
+<%@ include file="../layout/footer.jsp" %>

@@ -1,11 +1,13 @@
 package com.peeerr.instagram.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.peeerr.instagram.domain.image.Image;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
@@ -32,6 +34,10 @@ public class User {
 
     private String profileImageUrl;
     private String role;
+
+    @JsonIgnoreProperties({"user"})
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Image> images;
 
     private LocalDateTime createDate;
 

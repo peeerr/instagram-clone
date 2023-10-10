@@ -23,7 +23,8 @@ repositories {
 
 dependencies {
 	implementation group: 'org.apache.tomcat', name: 'tomcat-jasper', version: '10.1.13'
-	implementation group: 'javax.servlet.jsp.jstl', name: 'jstl', version: '1.2'
+	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
 	implementation 'org.springframework.security:spring-security-taglibs'
 
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.1.2'
