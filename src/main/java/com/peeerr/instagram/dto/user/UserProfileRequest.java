@@ -12,6 +12,10 @@ public class UserProfileRequest {
 
     private boolean pageOwnerState;
     private int imageCounter;
+
+    private boolean subscribeState;
+    private int subscribeCount;
+
     private User user;
 
 }
