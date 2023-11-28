@@ -1,5 +1,6 @@
 package com.peeerr.instagram.service;
 
+import com.peeerr.instagram.domain.subscribe.SubscribeRepository;
 import com.peeerr.instagram.domain.user.User;
 import com.peeerr.instagram.domain.user.UserRepository;
 import com.peeerr.instagram.dto.user.UserProfileRequest;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final SubscribeRepository subscribeRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
@@ -25,6 +27,8 @@ public class UserService {
         dto.setUser(user);
         dto.setImageCounter(user.getImages().size());
         dto.setPageOwnerState(pageUserId == principalId);
+        dto.setSubscribeState(subscribeRepository.subscribeState(principalId, pageUserId) == 1);
+        dto.setSubscribeCount(subscribeRepository.subscribeCount(principalId));
 
         return dto;
     }
