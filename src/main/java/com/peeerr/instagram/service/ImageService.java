@@ -6,6 +6,8 @@ import com.peeerr.instagram.domain.image.ImageRepository;
 import com.peeerr.instagram.dto.image.ImageUploadRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +41,11 @@ public class ImageService {
         // 이미지 DB에 저장
         Image image = imageUploadRequest.toEntity(imageFileName, principalDetails.getUser());
         imageRepository.save(image);
+    }
+
+    @Transactional(readOnly = true)  // 더티체킹, flush 를 안해서 성능 더 좋아짐
+    public Page<Image> getImageStories(Long principalId, Pageable pageable) {
+        return imageRepository.getStories(principalId, pageable);
     }
 
 }

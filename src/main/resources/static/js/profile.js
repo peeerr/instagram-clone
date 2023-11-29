@@ -48,7 +48,6 @@ function subscribeInfoModalOpen(pageUserId) {
 		url: `/api/user/${pageUserId}/subscribe`,
 		dataType: "json"
 	}).done(res=>{
-		console.log(res);
 		res.data.forEach((u)=>{
 			let item = getSubscribeModalItem(u);
 			$("#subscribeModalList").append(item);
@@ -70,9 +69,9 @@ function getSubscribeModalItem(u) {
 
 	if (!u.equalUserState) {
 		if (u.subscribeState) {  // 구독상태
-			item += `<button class="cta blue" onClick="toggleSubscribe(${u.id})">구독취소</button>`
+			item += `<button class="cta blue" onClick="toggleSubscribe(${u.id}, this)">구독취소</button>`
 		} else {  // 구독X 상태
-			item += `<button class="cta" onClick="toggleSubscribe(${u.id})">구독하기</button>`
+			item += `<button class="cta" onClick="toggleSubscribe(${u.id}, this)">구독하기</button>`
 		}
 	}
 

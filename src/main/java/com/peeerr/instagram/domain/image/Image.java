@@ -1,5 +1,6 @@
 package com.peeerr.instagram.domain.image;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.peeerr.instagram.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -20,6 +21,7 @@ public class Image {
     private String caption;
     private String postImageUrl;
 
+    @JsonIgnoreProperties({"images"})
     @ManyToOne
     private User user;
 
