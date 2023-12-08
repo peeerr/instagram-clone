@@ -28,7 +28,7 @@ public class UserService {
         dto.setImageCounter(user.getImages().size());
         dto.setPageOwnerState(pageUserId == principalId);
         dto.setSubscribeState(subscribeRepository.subscribeState(principalId, pageUserId) == 1);
-        dto.setSubscribeCount(subscribeRepository.subscribeCount(principalId));
+        dto.setSubscribeCount(subscribeRepository.subscribeCount(pageUserId));
 
         return dto;
     }
