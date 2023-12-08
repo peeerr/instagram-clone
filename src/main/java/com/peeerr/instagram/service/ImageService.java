@@ -45,7 +45,21 @@ public class ImageService {
 
     @Transactional(readOnly = true)  // 더티체킹, flush 를 안해서 성능 더 좋아짐
     public Page<Image> getImageStories(Long principalId, Pageable pageable) {
-        return imageRepository.getStories(principalId, pageable);
+        Page<Image> stories = imageRepository.getStories(principalId, pageable);
+
+        stories.forEach((story) -> {
+
+            story.setLikeCount(story.getLikes().size());
+
+            story.getLikes().forEach((like) -> {
+                if (like.getUser().getId() == principalId) {
+                    story.setLikeState(true);
+                }
+            });
+
+        });
+
+        return stories;
     }
 
 }
