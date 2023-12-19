@@ -24,6 +24,11 @@ public class UserService {
 
         User user = userRepository.findById(pageUserId).orElseThrow(() -> new CustomException("해당 프로필 페이지는 존재하지 않습니다."));
 
+        // 프로필 페이지 좋아요 카운트
+        user.getImages().forEach(image -> {
+            image.setLikeCount(image.getLikes().size());
+        });
+
         dto.setUser(user);
         dto.setImageCounter(user.getImages().size());
         dto.setPageOwnerState(pageUserId == principalId);
