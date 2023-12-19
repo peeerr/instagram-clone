@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -60,6 +61,11 @@ public class ImageService {
         });
 
         return stories;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Image> getPopularImages() {
+        return imageRepository.getPopulars();
     }
 
 }
