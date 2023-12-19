@@ -1,14 +1,18 @@
 package com.peeerr.instagram.controller;
 
 import com.peeerr.instagram.config.auth.PrincipalDetails;
+import com.peeerr.instagram.domain.image.Image;
 import com.peeerr.instagram.dto.image.ImageUploadRequest;
 import com.peeerr.instagram.exception.ex.CustomValidationException;
 import com.peeerr.instagram.service.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -22,7 +26,10 @@ public class ImageController {
     }
 
     @GetMapping("/image/popular")
-    public String popular() {
+    public String popular(Model model) {
+        List<Image> images = imageService.getPopularImages();
+        model.addAttribute("images", images);
+
         return "image/popular";
     }
 
