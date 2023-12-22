@@ -1,6 +1,7 @@
 package com.peeerr.instagram.domain.image;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.peeerr.instagram.domain.comment.Comment;
 import com.peeerr.instagram.domain.likes.Likes;
 import com.peeerr.instagram.domain.user.User;
 import jakarta.persistence.*;
@@ -28,9 +29,14 @@ public class Image {
     @ManyToOne
     private User user;
 
-    @JsonIgnoreProperties({"image"})  // 무한참조 오류 해결
+    @JsonIgnoreProperties({"image"})
     @OneToMany(mappedBy = "image")
     private List<Likes> likes;
+
+    @OrderBy("id DESC")
+    @JsonIgnoreProperties({"image"})
+    @OneToMany(mappedBy = "image")
+    private List<Comment> comments;
 
     private LocalDateTime createDate;
 
@@ -52,6 +58,10 @@ public class Image {
         this.caption = caption;
         this.postImageUrl = postImageUrl;
         this.user = user;
+    }
+
+    public Image(Long id) {
+        this.id = id;
     }
 
 }
