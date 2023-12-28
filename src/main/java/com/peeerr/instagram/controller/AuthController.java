@@ -34,23 +34,14 @@ public class AuthController {
     }
 
     @PostMapping("/auth/signup")
-    public String signup(@Valid SignupRequest signupRequest, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errorMap = new HashMap<>();
+    public String signup(@Valid SignupRequest signupRequest,
+                         BindingResult bindingResult) {
+        signupRequest.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
+        User user = signupRequest.toEntity();
 
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
+        authService.signup(user);
 
-            throw new CustomValidationException("유효성 검사 오류", errorMap);
-        } else {
-            signupRequest.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
-            User user = signupRequest.toEntity();
-
-            authService.signup(user);
-
-            return "auth/signin";
-        }
+        return "auth/signin";
     }
 
 }

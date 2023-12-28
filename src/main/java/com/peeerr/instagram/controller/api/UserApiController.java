@@ -43,22 +43,12 @@ public class UserApiController {
                                                @Valid UserUpdateRequest userUpdateRequest,
                                                BindingResult bindingResult,
                                                @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
-            
-            throw new CustomValidationApiException("유효성 검사 오류", errors);
-        } else {
-            User user = userService.update(id, userUpdateRequest.toEntity());
+        User user = userService.update(id, userUpdateRequest.toEntity());
 
-            principalDetails.setUser(user);  // 세션 정보 업데이트 (회원정보 업데이트 창 반영)
+        principalDetails.setUser(user);  // 세션 정보 업데이트 (회원정보 업데이트 창 반영)
 
-            return ResponseEntity.ok()
-                    .body(new CMResponse<>(1, "회원정보 변경 성공", user));
-        }
+        return ResponseEntity.ok()
+                .body(new CMResponse<>(1, "회원정보 변경 성공", user));
     }
 
     @PutMapping("/user/{principalId}/profileImageUrl")
