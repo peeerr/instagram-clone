@@ -8,9 +8,11 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
 @Entity
 public class User {
 
@@ -18,7 +20,7 @@ public class User {
     @Id
     private Long id;
 
-    @Column(length = 20, unique = true)
+    @Column(length = 100, unique = true)
     private String username;
     @Column(nullable = false)
     private String password;
@@ -44,20 +46,6 @@ public class User {
     @PrePersist
     public void createDate() {
         this.createDate = LocalDateTime.now();
-    }
-
-    @Builder
-    public User(String username, String password, String email, String name, String website, String bio, String phone, String gender, String profileImageUrl, String role) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.name = name;
-        this.website = website;
-        this.bio = bio;
-        this.phone = phone;
-        this.gender = gender;
-        this.profileImageUrl = profileImageUrl;
-        this.role = role;
     }
 
     public User(Long id) {
